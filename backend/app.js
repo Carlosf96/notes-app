@@ -1,15 +1,17 @@
 const express = require('express');
-const dev = require('morgan');
+const morgan = require('morgan');
+const cors = require('cors');
 // const mongoose = require('mongoose');
 // require('dotenv').config();
 // const db = process.env.MONGO_URI;
 const notesRouter = require('./routes/notes.route');
-
+const logger = morgan('dev');
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
+app.use(cors());
+app.use(logger);
 // mongoose.connect(db, {
 //   useNewUrlParser: true,
 //   useCreateIndex: true,
