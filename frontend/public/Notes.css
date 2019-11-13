@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(233, 192, 139);
+  background-color: rgb(240, 233, 224);
 }
 #container {
   display: flex;
@@ -13,20 +13,27 @@ body {
 }
 ul {
   padding: 0px;
-}
-#notes {
-  list-style: none;
   display: flex;
   flex-direction: column;
-  z-index: 4;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);;
+  justify-content: space-evenly;
 }
-#notes input {
-  margin-top: 10px;
+li {
+  padding: 0px;
+  margin-top: 20px;
+  list-style: none;
+  background-color: #ffcf40cc;
+  display: flex;
   border: none;
-  margin-bottom: 10px;
+  border-radius: 1.5px;
+  flex-direction: column;
+  box-shadow: 1px 3px 7px 4px rgba(0, 0, 0, 0.2);;
 }
-#notes button {
+li input {
+  background-color: #ffcf40cc;
+  border: none;
+  block-size: 40px;
+}
+li button {
   background-color: inherit;
   border: none;
   font-size: 15px;
