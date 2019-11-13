@@ -1,12 +1,12 @@
 document.body.onload = loadNotes;
 
-var loadNotes = (async (req, res) => {
+var loadNotes = (async () => {
   var res = await window.fetch("http://localhost:8000/api/notes/");
   var data = await res.json();
   Promise.resolve(data);
   createNoteComponent(data);
   document.getElementById("add-button").onclick = createNewNote;
-  // document.getElementById("delete-button").onclick = deleteNote;
+  document.getElementById("delete-button").onclick = deleteNote;
 })();
 
 var createNoteComponent = ({ notes }) => notes.map(note => createNewNote(note));
@@ -32,8 +32,8 @@ var createNewNote = note => {
   list.appendChild(newNote);
 };
 
-var deleteNote = async (req, res) => {
-  var res = await window.fetch("http://localhost:8000/api/notes/:id", {
+var deleteNote = async (id) => {
+  var res = await window.fetch(`http://localhost:8000/api/notes/${id}`, {
     method: "DELETE"
   });
   var data = await res.json();
