@@ -2,7 +2,6 @@ document.body.onload = loadNotes;
 
 var loadNotes = (async (req, res) => {
     var res = await window.fetch('http://localhost:8000/api/notes/');
-    console.log(res, 'this is the results')
     var data = await res.json();
     Promise.resolve(data);
     console.log(data, 'raw data');
