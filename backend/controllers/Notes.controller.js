@@ -44,12 +44,14 @@ module.exports.createNote = (req, res) => {
   notes.push(newNote);
   res.status(201).json({ note: newNote });
 };
-module.exports.deleteNote = async (req, res) => {
+module.exports.deleteNote =  (req, res) => {
   const { id } = req.params;
+  var notes = this.getAllNotes(req,res);
+  console.log(notes, 'these are the notes')
   const noteIndex = notes.findIndex(note => note.id === id);
   if (noteIndex < 0) {
     return res.status(400).json({});
   }
-  note = notes.filter(note => note.id === id);
+  notes = notes.filter(note => note.id === id);
   res.status(204).json({});
 };
