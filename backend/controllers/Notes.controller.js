@@ -27,7 +27,7 @@ module.exports.updateNote = async (req, res) => {
     note: notes[noteIndex]
   });
 };
-module.exports.createNote = (req, res) => {
+module.exports.createNote = (...res) => {
   const cuid = require("cuid");
   const note = req.body;
   const notes = [
