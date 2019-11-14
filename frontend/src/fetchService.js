@@ -1,5 +1,12 @@
 const FetchNoteService = () => {
-  const saveNote = async note =>{
+  const getNotes = async note => {
+    const res = await window.fetch("http://localhost:8000/api/notes/");
+    const data = await res.json();
+    Promise.resolve(data);
+    console.log(data, 'Retrieved notes');
+    return data;
+  };
+  const saveNote = async note => {
     const res = await window.fetch("http://localhost:8000/api/notes/", {
       method: "GET",
       body: note
@@ -29,5 +36,5 @@ const FetchNoteService = () => {
     saveNote,
     updateNote,
     deleteNote
-  }
-}
+  };
+};
