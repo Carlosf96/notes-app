@@ -7,30 +7,25 @@ var loadNotes = (async () => {
   createNoteComponent(data);
   document.getElementById("add-button").onclick = createNewNote;
   document.getElementById("delete-button").onclick = deleteNote;
+  return data;
 })();
+
+// const { notes } = loadNotes;
 
 var createNoteComponent = ({ notes }) => notes.map(note => createNewNote(note));
 
 var createNewNote = note => {
-  var list = document.getElementById("list");
-  var newNote = document.createElement("li");
-  var noteContent = document.createElement("input");
-  var noteContent2 = document.createElement("input");
-  var xButton = document.createElement("button");
-  if(!note) {
-    noteContent.placeholder = note.noteTitle 
-    noteContent2.placeholder = note.noteBody;
-  } else {
-    noteContent.placeholder = 'Title';
-    noteContent2.placeholder = 'Body'
-  }
-  xButton.innerText = "X";
-  xButton.setAttribute("id", "delete-button");
-  newNote.appendChild(xButton);
-  newNote.appendChild(noteContent);
-  newNote.appendChild(noteContent2);
-  list.appendChild(newNote);
-};
+ const list = document.getElementById('list');
+ let li = `
+   <li class='list-item'>
+     <button id='delete-button'>x</button>
+     <input placeholder=${note.noteTitle || 'Title'}>
+     <input placeholder=${note.noteBody || 'Body'}>
+   </li> 
+`;
+ list.insertAdjacentHTML('afterend', li);
+}         
+
 
 var deleteNote = async (id) => {
   var res = await window.fetch(`http://localhost:8000/api/notes/${id}`, {
