@@ -1,6 +1,6 @@
 document.body.onload = loadNotes;
 
-const newNote = note => {
+const createNewNote = note => {
   return `
    <li class='list-item'>
     <form class='input-forms'>
@@ -18,19 +18,19 @@ var loadNotes = (async () => {
   const res = await window.fetch("http://localhost:8000/api/notes/");
   const data = await res.json();
   Promise.resolve(data);
-  createNoteComponent(data);
+  renderNotes(data);
   return data;
 })();
 
-var updateNote = async (note) => {
+var updateNote = async note => {
   const res = await window.fetch(`http://localhost:8000/api/notes/${id}`, {
     method: "Put",
     body: note
   });
   const data = await res.json();
   Promise.resolve(data);
-  console.log("note has been updated")
-}
+  console.log("note has been updated");
+};
 
 var deleteNote = async id => {
   const res = await window.fetch(`http://localhost:8000/api/notes/${id}`, {
@@ -48,5 +48,5 @@ var addToList = li => {
   list.insertAdjacentHTML("beforeend", li);
 };
 
-var createNoteComponent = ({ notes }) => notes.map(note => addToList(newNote(note)));
-var createNewNoteComponent = () => addToList(newNote());
+var renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
+var renderNewNote = () => addToList(createNewNote());

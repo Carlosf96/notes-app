@@ -9,17 +9,29 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+#main-header {
+  display: flex;
+  flex-direction: column;
+}
 h1 {
   align-self: center;
 }
 #add-button {
-  padding: 0 2px 0 0;
   align-self: flex-end;
+  padding: 0 3px 0 0;
   background-color: inherit;
   border: none;
   font-size: 20px;
   font-weight: 200;
   outline: none;
+  transition-duration:1s,1s,1s,1s,1s,1s;
+  transition: opacity 2s ease-out, background 1s linear,  width 1s, height 1s, font-size 1s;
+}
+#add-button:hover {
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  transform: rotate(360deg);
 }
 .delete-button {
   background-color: inherit;
@@ -31,7 +43,7 @@ ul {
   padding: 0px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between
+  justify-content: space-between;
 }
 .list-item {
   padding: 0px;
@@ -42,7 +54,7 @@ ul {
   border: none;
   border-radius: 2px;
   flex-direction: column;
-  box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.2);;
+  box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.2);
 }
 .note-title {
   display: flex;
