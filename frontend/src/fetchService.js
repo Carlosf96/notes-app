@@ -1,19 +1,18 @@
 const FetchNoteService = () => {
-  const getNotes = async note => {
+  const getNotes = async () => {
     const res = await window.fetch("http://localhost:8000/api/notes/");
     const data = await res.json();
-    Promise.resolve(data);
     console.log(data, 'Retrieved notes');
-    return data;
+    return Promise.resolve(data);
   };
   const saveNote = async note => {
     const res = await window.fetch("http://localhost:8000/api/notes/", {
-      method: "GET",
+      method: "POST",
       body: note
     });
     const data = await res.json();
-    Promise.resolve(data);
     console.log("Note has been saved");
+    return Promise.resolve(data);
   };
   const updateNote = async note => {
     const res = await window.fetch(`http://localhost:8000/api/notes/${id}`, {
@@ -21,18 +20,19 @@ const FetchNoteService = () => {
       body: note
     });
     const data = await res.json();
-    Promise.resolve(data);
     console.log("note has been updated");
+    return Promise.resolve(data);
   };
   const deleteNote = async id => {
     const res = await window.fetch(`http://localhost:8000/api/notes/${id}`, {
       method: "DELETE"
     });
     const data = await res.json();
-    Promise.resolve(data);
     console.log("note has been deleted");
+    return Promise.resolve(data);
   };
   return {
+    getNotes,
     saveNote,
     updateNote,
     deleteNote
