@@ -77,3 +77,6 @@ ul {
   text-align: center;
   outline: none;
 }
+.hidden-button {
+  display: none;
+}

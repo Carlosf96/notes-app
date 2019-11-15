@@ -8,19 +8,20 @@ module.exports.getAllNotes = (req, res) => {
 };
 module.exports.updateNote = async (req, res) => {
   const { id } = req.params;
-  const { noteBody, noteTitle } = req.body;
+  const { noteTitle, noteBody } = req.body;
   const noteIndex = notes.findIndex(note => note.id === id);
   if (noteIndex < 0) {
     return res.status(400).json({});
   }
   notes[noteIndex] = {
-    ...notes[noteIndex],
+    id,
     noteTitle,
     noteBody
   };
   res.status(200).json({
     note: notes[noteIndex]
   });
+  console.log(notes);
 };
 module.exports.createNote = (req, res) => {
   const note = req.body;

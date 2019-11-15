@@ -18,7 +18,10 @@ const FetchNoteService = () => {
   const updateNote = async (id, note) => {
     const res = await fetch(`http://localhost:8000/api/notes/${id}`, {
       method: 'PUT',
-      body: note
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(note)
     });
     const data = await res.json();
     console.log('note has been updated');
