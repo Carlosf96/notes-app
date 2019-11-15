@@ -34,7 +34,7 @@ const deleteAndRemoveFromList = () => {
 
 const saveNoteContent = () => {
   event.preventDefault();
-  const notTheId = [...event.srcElement.id]
+  const notTheId = [...event.srcElement.id];
   notTheId.pop();
   const theId = notTheId.join('');
   const noteTitle = !event.target[0].value ? event.target[0].placeholder : event.target[0].value;
@@ -43,7 +43,7 @@ const saveNoteContent = () => {
     theId,
     noteTitle,
     noteBody,
-  }
+  };
   console.log(updatedNote, 'this the update');
   FetchNoteService()
     .updateNote(theId, updatedNote)
