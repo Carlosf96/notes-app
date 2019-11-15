@@ -71,11 +71,12 @@ ul {
 
 .list-item input {
   background-color: inherit;
-  border: none;
+  border: none; 
   block-size: 50px;
   text-anchor: middle;
   text-align: center;
   outline: none;
+  caret-color: transparent;
 }
 .hidden-button {
   display: none;

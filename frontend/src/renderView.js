@@ -34,17 +34,17 @@ const deleteAndRemoveFromList = () => {
 
 const saveNoteContent = () => {
   event.preventDefault();
+  const { target } = event;
   const notTheId = [...event.srcElement.id];
   notTheId.pop();
   const theId = notTheId.join('');
-  const noteTitle = !event.target[0].value ? event.target[0].placeholder : event.target[0].value;
-  const noteBody = !event.target[1].value ? event.target[1].placeholder : event.target[1].value;
+  const noteTitle = !target[0].value ? target[0].placeholder : target[0].value;
+  const noteBody = !target[1].value ? target[1].placeholder : target[1].value;
   const updatedNote = {
     theId,
     noteTitle,
     noteBody,
   };
-  console.log(updatedNote, 'this the update');
   FetchNoteService()
     .updateNote(theId, updatedNote)
     .then(res => console.log(res))
