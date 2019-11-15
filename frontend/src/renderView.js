@@ -4,13 +4,9 @@ const createNewNote = note => `
       <div class='note-title'>
         <i type='text' class='delete-button' id=${note.id +
           '1'} onclick="deleteAndRemoveFromList()">x</i>
-        <input class='title-input' id=${note.id + '-title'} placeholder=${
-  note.noteTitle ? note.noteTitle : 'Title'
-}>
+        <input class='title-input' id=${note.id + '-title'} placeholder=${note.noteTitle || 'Title'}>
       </div>
-      <input class='body-input' id=${note.id + '-body'} placeholder=${
-  note.noteBody ? note.noteBody : 'Body'
-}>
+      <input class='body-input' id=${note.id + '-body'} placeholder=${note.noteBody || 'Body'}>
     </form>
   </li> 
   `;
