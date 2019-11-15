@@ -46,19 +46,9 @@ h1 {
   border: none;
   font-size: 10px;
   outline: none;
-  transition-duration: .5s,.5s,.5s,.5s,.5s,.5s;
 }
 .delete-button:hover {
   cursor: pointer;
-  transform               : rotate(360deg);
-	-moz-transform          : rotate(360deg);
-	-webkit-transform       : rotate(360deg);
-	transform-origin        : center;
-	-moz-transform-origin   : center;
-	-webkit-transform-origin: center;
-
-	transition              : transform 1.0s ease all;
-	-moz-transition         : -moz-transform 1.0s ease 
 }
 ul {
   padding: 0px;
