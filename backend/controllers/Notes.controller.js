@@ -1,13 +1,8 @@
+const cuid = require("cuid");
+let notes = [];
+
 module.exports.getAllNotes = (req, res) => {
-  const cuid = require("cuid");
-  var notes = [
-    {
-      id: cuid(),
-      noteTitle: "Title",
-      noteBody: "Body"
-    }
-  ];
-  return res.json({
+  return res.status(200).json({
     notes
   });
 };
@@ -27,16 +22,8 @@ module.exports.updateNote = async (req, res) => {
     note: notes[noteIndex]
   });
 };
-module.exports.createNote = (...res) => {
-  const cuid = require("cuid");
+module.exports.createNote = (req, res) => {
   const note = req.body;
-  const notes = [
-    {
-      id: cuid(),
-      noteTitle: "Title",
-      noteBody: "Body"
-    }
-  ];
   const newNote = {
     id: cuid(),
     ...note
@@ -46,12 +33,10 @@ module.exports.createNote = (...res) => {
 };
 module.exports.deleteNote =  (req, res) => {
   const { id } = req.params;
-  var notes = this.getAllNotes(req,res);
-  console.log(notes, 'these are the notes')
   const noteIndex = notes.findIndex(note => note.id === id);
   if (noteIndex < 0) {
-    return res.status(400).json({});
+    return res.status(400).json({ message: 'ID does not exist'});
   }
-  notes = notes.filter(note => note.id === id);
-  res.status(204).json({});
+  notes = notes.filter(note => note.id !== id);
+  res.status(204).json({ message: 'User has been deleted'});
 };
