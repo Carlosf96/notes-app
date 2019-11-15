@@ -1,4 +1,14 @@
 const FetchNoteService = () => {
+  const createNote = async note => {
+    const res = await window.fetch("http://localhost:8000/api/notes/",
+    {
+      method: 'POST',
+      body: note
+    });
+    const data = await res.json();
+    console.log(data, 'Retrieved notes');
+    return Promise.resolve(data);
+  };
   const getNotes = async () => {
     const res = await window.fetch("http://localhost:8000/api/notes/");
     const data = await res.json();
@@ -32,6 +42,7 @@ const FetchNoteService = () => {
     return Promise.resolve(data);
   };
   return {
+    createNote,
     getNotes,
     saveNote,
     updateNote,
