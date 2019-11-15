@@ -5,14 +5,14 @@ Re-affirming previously learned things creating a notes app with vanillaJS and n
 
 clone repo
 
-cd into repo dir
-
-inside of repo do the following commands
+cd into notes-app/backend
+and do the following commands
 
 ```bash
 $ npm install
 $ node bin/www
 ```
+then cd out of backend dir and cd into frontend/public and open html file in your browser
 ## Built With
 
 * [ES6]
