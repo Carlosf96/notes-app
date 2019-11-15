@@ -1,9 +1,12 @@
 body {
+  margin: 0;
+  padding: 0;
   background-color: rgb(240, 233, 224);
   font-family: sans-serif;
   color: rgba(0, 0, 0, 0.37);
 }
 #container {
+  min-height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -88,4 +91,14 @@ ul {
 }
 .hidden-button {
   display: none;
+}
+
+@media (max-width: 480px){
+  #main-header h1{
+    font-size: 35px;
+  }
+  #main-header p{
+    font-size: 16px;
+  }
+
 }
