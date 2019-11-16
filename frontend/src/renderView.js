@@ -56,5 +56,5 @@ const addToList = li => getList().insertAdjacentHTML('beforeend', li);
 const removeFromList = id => document.getElementById(id).remove();
 const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
-
+console.log(FetchNoteService)
 document.onload = FetchNoteService().getNotes().then(notes => renderNotes(notes));

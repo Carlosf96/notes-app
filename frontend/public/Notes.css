@@ -24,7 +24,7 @@ h1 {
   font-size: 20px;
   font-weight: 200;
   outline: none;
-  transition-duration:1s,1s,1s,1s,1s,1s;
+  transition-duration: 1s,1s,1s,1s,1s,1s;
   transition: opacity 2s ease-out, background 1s linear,  width 1s, height 1s, font-size 1s;
 }
 #add-button:hover {
@@ -34,7 +34,7 @@ h1 {
   transform: rotate(360deg);
 }
 .delete-button {
-  padding: 0 3px   0 0;
+  padding: 0 3px 0 0;
   background-color: inherit;
   border: none;
   font-size: 10px;
