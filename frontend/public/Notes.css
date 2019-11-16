@@ -1,12 +1,18 @@
 body {
+  margin: 0;
+  padding: 0;
   background-color: rgb(240, 233, 224);
   font-family: sans-serif;
   color: rgba(0, 0, 0, 0.37);
 }
 #container {
+  min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
   justify-content: space-between;
 }
 #main-header {
@@ -24,14 +30,18 @@ h1 {
   font-size: 20px;
   font-weight: 200;
   outline: none;
-  transition-duration: 1s,1s,1s,1s,1s,1s;
-  transition: opacity 2s ease-out, background 1s linear,  width 1s, height 1s, font-size 1s;
+  transition-duration: .5s,.5s,.5s,.5s,.5s,.5s;
 }
 #add-button:hover {
-  -moz-transform: rotate(360deg);
-  -webkit-transform: rotate(360deg);
-  -o-transform: rotate(360deg);
-  transform: rotate(360deg);
+  transform               : rotate(180deg);
+	-moz-transform          : rotate(180deg);
+	-webkit-transform       : rotate(180deg);
+	transform-origin        : center;
+	-moz-transform-origin   : center;
+	-webkit-transform-origin: center;
+
+	transition              : transform 1.0s ease all;
+	-moz-transition         : -moz-transform 1.0s ease 
 }
 .delete-button {
   padding: 0 3px 0 0;
@@ -58,6 +68,7 @@ ul {
   border: none;
   border-radius: 2px;
   flex-direction: column;
+  transition: 1.0 ease all;
   box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.2);
 }
 .note-title {
@@ -71,12 +82,23 @@ ul {
 
 .list-item input {
   background-color: inherit;
-  border: none;
+  border: none; 
   block-size: 50px;
   text-anchor: middle;
   text-align: center;
   outline: none;
+  caret-color: transparent;
 }
 .hidden-button {
   display: none;
+}
+
+@media (max-width: 480px){
+  #main-header h1{
+    font-size: 35px;
+  }
+  #main-header p{
+    font-size: 16px;
+  }
+
 }

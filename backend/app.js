@@ -7,7 +7,6 @@ const cors = require('cors');
 const notesRouter = require('./routes/notes.route');
 const logger = morgan('dev');
 const app = express();
-const notes = [];
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
