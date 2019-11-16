@@ -25,7 +25,7 @@ const deleteAndRemoveFromList = () => {
   const notTheId = [...event.srcElement.id];
   notTheId.pop();
   const theId = notTheId.join('');
-  FetchNoteService()
+  FetchNoteService
     .deleteNote(theId)
     .then(res => console.log(res))
     .catch(err => console.log(err));
@@ -45,7 +45,7 @@ const saveNoteContent = () => {
     noteTitle,
     noteBody,
   };
-  FetchNoteService()
+  FetchNoteService
     .updateNote(theId, updatedNote)
     .then(res => console.log(res))
     .catch(err => console.log(err));
@@ -57,4 +57,4 @@ const removeFromList = id => document.getElementById(id).remove();
 const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
 console.log(FetchNoteService)
-document.onload = FetchNoteService().getNotes().then(notes => renderNotes(notes));
+document.onload = FetchNoteService.getNotes().then(notes => renderNotes(notes));

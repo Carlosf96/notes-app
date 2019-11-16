@@ -1,5 +1,5 @@
 const { fetch } = window;
-const FetchNoteService = () => {
+const FetchNoteService = (() => {
   const createNote = async note => {
     const res = await fetch('http://localhost:8000/api/notes/', {
       method: 'POST',
@@ -41,4 +41,4 @@ const FetchNoteService = () => {
     updateNote,
     deleteNote
   };
-};
+})();
