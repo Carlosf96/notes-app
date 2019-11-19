@@ -4,6 +4,7 @@ body {
   background-color: rgb(240, 233, 224);
   font-family: sans-serif;
   color: rgba(0, 0, 0, 0.425);
+  overflow-x: hidden;
 }
 #container {
   min-height: 100vh;
@@ -114,10 +115,7 @@ ul {
 
 @media (max-width: 480px){
   #main-header h1{
-    font-size: 45px;
-  }
-  #main-header p{
-    font-size: 25px;
+    font-size: 60px;
   }
 
 }
