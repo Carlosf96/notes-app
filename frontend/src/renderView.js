@@ -1,4 +1,4 @@
-const $ = (selector) => document.querySelector(selector);
+const $ = selector => document.querySelector(selector);
 const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
@@ -11,6 +11,11 @@ const createNewNote = note => `
     </form>
   </li> 
   `;
+// TODOS:
+// Change second input to textarea
+//  Make textarea resizable
+// Add eventlistener to listen on keyup event
+//  Make note save on keyup
 const createAndAddToList = () => {
   FetchNoteService
     .createNote({

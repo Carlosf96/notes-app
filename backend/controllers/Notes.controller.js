@@ -1,6 +1,5 @@
 const cuid = require("cuid");
 let notes = [];
-
 module.exports.getAllNotes = (req, res) => {
   return res.status(200).json({
     notes

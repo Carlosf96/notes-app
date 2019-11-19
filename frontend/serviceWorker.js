@@ -22,7 +22,6 @@ self.addEventListener('install', async () => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   const url = new URL(req.url);
-
   if(url.origin === location.url){
       event.respondWith(cacheFirst(req));
   } else {
@@ -35,7 +34,6 @@ async function cacheFirst(req){
 };
 async function newtorkFirst(req){
   const cache = await caches.open('dynamic-cache');
-
   try {
       const res = await fetch(req);
       cache.put(req, res.clone());
