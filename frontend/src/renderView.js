@@ -1,8 +1,8 @@
 const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
-    <form id=${note.id + '1'} class='input-forms' onsubmit="saveNoteContent()">
+    <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
       <div class='note-title'>
-        <i type='text' class='delete-button' id=${note.id + '1'} onclick="deleteAndRemoveFromList()">x</i>
+        <i type='text' class='delete-button' id=${note.id + '%'} onclick="deleteAndRemoveFromList()">x</i>
         <input class='title-input' type='text' id=${note.id + '-title'} placeholder=${note.noteTitle || 'Title'}>
       </div>
       <input class='body-input'  type='text' id=${note.id + '-body'} placeholder=${note.noteBody || 'Body'}>
@@ -21,9 +21,7 @@ const createAndAddToList = () => {
 };
 const deleteAndRemoveFromList = () => {
   event.preventDefault();
-  const notTheId = [...event.srcElement.id];
-  notTheId.pop();
-  const theId = notTheId.join('');
+  const theId = [...event.srcElement.id].filter(e => e !== '%').join('');
   FetchNoteService
     .deleteNote(theId)
     .then(res => console.log(res))
@@ -33,9 +31,7 @@ const deleteAndRemoveFromList = () => {
 const saveNoteContent = () => {
   event.preventDefault();
   const { target } = event;
-  const notTheId = [...event.srcElement.id];
-  notTheId.pop();
-  const theId = notTheId.join('');
+  const theId = [...event.srcElement.id].filter(e => e !== '%').join('');
   const noteTitle = !target[0].value ? target[0].placeholder : target[0].value;
   const noteBody = !target[1].value ? target[1].placeholder : target[1].value;
   const updatedNote = {
