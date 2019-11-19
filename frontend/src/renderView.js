@@ -14,7 +14,7 @@ const createAndAddToList = () => {
   FetchNoteService
     .createNote({
       noteTitle: '',
-      noteBody: ''
+      noteBody: '',
     })
     .then(res => addToList(createNewNote(res.note)))
     .catch(err => console.log(err));

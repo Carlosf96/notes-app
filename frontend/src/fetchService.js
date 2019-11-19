@@ -3,7 +3,7 @@ const FetchNoteService = (() => {
   const createNote = async note => {
     const res = await fetch('http://localhost:8000/api/notes/', {
       method: 'POST',
-      body: note
+      body: note,
     });
     const data = await res.json();
     console.log(data, 'Retrieved notes');
@@ -29,7 +29,7 @@ const FetchNoteService = (() => {
   };
   const deleteNote = async id => {
     const res = await fetch(`http://localhost:8000/api/notes/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
     });
     const data = await res.json();
     console.log('note has been deleted');
@@ -39,6 +39,6 @@ const FetchNoteService = (() => {
     createNote,
     getNotes,
     updateNote,
-    deleteNote
+    deleteNote,
   };
 })();
