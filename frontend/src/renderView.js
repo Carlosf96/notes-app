@@ -19,7 +19,6 @@ const createAndAddToList = () => {
     .then(res => addToList(createNewNote(res.note)))
     .catch(err => console.log(err));
 };
-
 const deleteAndRemoveFromList = () => {
   event.preventDefault();
   const notTheId = [...event.srcElement.id];
@@ -31,7 +30,6 @@ const deleteAndRemoveFromList = () => {
     .catch(err => console.log(err));
   removeFromList(theId);
 };
-
 const saveNoteContent = () => {
   event.preventDefault();
   const { target } = event;
@@ -57,4 +55,4 @@ const removeFromList = id => document.getElementById(id).remove();
 const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
 
-document.onload = FetchNoteService.getNotes().then(notes => renderNotes(notes));
+FetchNoteService.getNotes().then(notes => renderNotes(notes));
