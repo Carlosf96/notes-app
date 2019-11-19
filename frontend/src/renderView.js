@@ -1,3 +1,4 @@
+const $ = (selector) => document.querySelector(selector);
 const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
@@ -45,9 +46,9 @@ const saveNoteContent = () => {
     .catch(err => console.log(err));
   window.location.reload(false);
 };
-const getList = () => document.getElementById('list');
+const getList = () => $('#list');
 const addToList = li => getList().insertAdjacentHTML('beforeend', li);
-const removeFromList = id => document.getElementById(id).remove();
+const removeFromList = id => $('#'+id).remove();
 const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
 FetchNoteService.getNotes().then(notes => renderNotes(notes));
