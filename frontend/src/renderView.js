@@ -2,8 +2,8 @@ const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
       <div class='note-title'>
-        <i type='text' class='delete-button' id=${note.id + '%'} onclick="deleteAndRemoveFromList()">x</i>
-        <input class='title-input' type='text' id=${note.id + '-title'} placeholder=${note.noteTitle || 'Title'}>
+      <input class='title-input' type='text' id=${note.id + '-title'} placeholder=${note.noteTitle || 'Title'}>
+      <i type='text' class='delete-button' id=${note.id + '%'} onclick="deleteAndRemoveFromList()">x</i>
       </div>
       <input class='body-input'  type='text' id=${note.id + '-body'} placeholder=${note.noteBody || 'Body'}>
       <input class='hidden-button' type='submit'>
@@ -50,5 +50,3 @@ const addToList = li => getList().insertAdjacentHTML('beforeend', li);
 const removeFromList = id => document.getElementById(id).remove();
 const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
-
-FetchNoteService.getNotes().then(notes => renderNotes(notes));
