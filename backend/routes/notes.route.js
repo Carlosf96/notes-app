@@ -5,7 +5,7 @@ const controller = require('../controllers/Notes.controller');
 router
   .route('/')
   .get(controller.getAllNotes)
-  .post(controller.createNote)
+  .post(controller.createNote);
 
 router
   .route('/:id')

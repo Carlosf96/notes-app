@@ -2,7 +2,7 @@ const cuid = require("cuid");
 let notes = [];
 module.exports.getAllNotes = (req, res) => {
   return res.status(200).json({
-    notes
+    notes,
   });
 };
 module.exports.updateNote = async (req, res) => {
@@ -15,7 +15,7 @@ module.exports.updateNote = async (req, res) => {
   notes[noteIndex] = {
     id,
     noteTitle,
-    noteBody
+    noteBody,
   };
   res.status(200).json({
     note: notes[noteIndex]
@@ -26,7 +26,7 @@ module.exports.createNote = (req, res) => {
   const note = req.body;
   const newNote = {
     id: cuid(),
-    ...note
+    ...note,
   };
   notes.push(newNote);
   res.status(201).json({ note: newNote });

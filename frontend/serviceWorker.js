@@ -28,11 +28,11 @@ self.addEventListener('fetch', (event) => {
       event.respondWith(newtorkFirst(req));
   }
 });
-async function cacheFirst(req){
+const cacheFirst = async (req) => {
   const cachedResponse = caches.match(req);
   return cachedResponse || fetch(req);
 };
-async function newtorkFirst(req){
+const networkFirst = (req) => {
   const cache = await caches.open('dynamic-cache');
   try {
       const res = await fetch(req);

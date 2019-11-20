@@ -1,0 +1,11 @@
+DROP DATABASE IF EXISTS notes;
+
+CREATE DATABASE notes;
+
+USE notes;
+
+CREATE TABLE notestable (
+  id CHAR NOT NULL PRIMARY KEY,
+  notetitle VARCHAR(64) NOT NULL,
+  note_body VARCHAR(255) NOT NULL,
+);
