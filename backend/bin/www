@@ -7,11 +7,15 @@ var port = process.env.PORT || 8000;
 app.set("port", port)
 
 var server = http.createServer(app);
-models.sequelize.sync().then(function(){
+
+models.sequelize
+.sync()
+.then(function(){
   server.listen(port);
   server.on("error", onError);
   server.on("listening", onListening);
-})
+  console.log('Notes table should have been created')
+}).catch(err => console.log(err))
 
 function onError(error) { 
   if (error.syscall !== "listen") { 

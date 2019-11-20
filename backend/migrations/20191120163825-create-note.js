@@ -4,23 +4,24 @@ module.exports = {
     return queryInterface.createTable('Notes', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.STRING
       },
       title: {
+        allowNull: true,
         type: Sequelize.STRING
       },
       body: {
+        allowNull: true,
         type: Sequelize.STRING
-      }
-      ,
+      },
       createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        allowNull: true,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.NOW
       },
       updatedAt: {
-        allowNull: false,
+        allowNull: true,
         type: Sequelize.DATE
       }
     });
