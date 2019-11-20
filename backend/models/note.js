@@ -9,14 +9,14 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     body: DataTypes.STRING,
     createdAt: {
-      allowNull: true,
+      allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: sequelize.NOW
+      defaultValue: new Date()
     },
     updatedAt: {
-      allowNull: true,
+      allowNull: false,
       type: DataTypes.DATE,
-      defaultValue: sequelize.NOW
+      defaultValue: new Date()
     }
   }, {});
   Note.associate = function(models) {
