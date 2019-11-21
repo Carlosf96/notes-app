@@ -1,4 +1,4 @@
-# notes-app
+# Notes-App
 Re-affirming previously learned things creating a notes app with vanillaJS and node REST API
 ![logo](screenshot.png)
 
