@@ -39,11 +39,10 @@ const networkFirst = async (req) => {
   const cache = await caches.open('dynamic-cache');
   try {
       const res = await fetch(req);
-      console.log(res);
       cache.put(req, res.clone());
       return res;
   } catch (error) {
-      console.log('The request was not able to be made')
+      console.log('The request was not able to be made, here is some cachy cache')
       return await cache.match(req);
   }
 };

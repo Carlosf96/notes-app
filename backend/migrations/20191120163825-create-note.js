@@ -30,3 +30,4 @@ module.exports = {
     return queryInterface.dropTable('Notes');
   }
 };
+// Migrations are used to make changes to a DB, use like a commit or a log
