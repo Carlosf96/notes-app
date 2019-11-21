@@ -3,10 +3,10 @@ const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
       <div class='note-title'>
-      <input class='title-input' type='text' id=${note.id + '-title'} placeholder=${note.noteTitle || 'Title'}>
+      <input class='title-input' type='text' id=${note.id + '-title'} placeholder=${note.title || 'Title'}>
       <i type='text' class='delete-button' id=${note.id + '%'} onclick="deleteAndRemoveFromList()">x</i>
       </div>
-      <input class='body-input'  type='text' id=${note.id + '-body'} placeholder=${note.noteBody || 'Body'}>
+      <input class='body-input'  type='text' id=${note.id + '-body'} placeholder=${note.body || 'Body'}>
       <input class='hidden-button' type='submit'>
     </form>
   </li> 
@@ -41,9 +41,9 @@ const saveNoteContent = () => {
   const noteTitle = !target[0].value ? target[0].placeholder : target[0].value;
   const noteBody = !target[1].value ? target[1].placeholder : target[1].value;
   const updatedNote = {
-    theId,
-    noteTitle,
-    noteBody,
+    id: theId,
+    title: noteTitle,
+    body: noteBody,
   };
   FetchNoteService
     .updateNote(theId, updatedNote)
