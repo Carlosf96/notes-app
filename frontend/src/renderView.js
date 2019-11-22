@@ -14,10 +14,14 @@ const createNewNote = note => `
   </li> 
   `;
 // TODOS:
+// Layout changes:
+//  Implement responsive masonry layout using css and javscript
+//  look at the google keep for ideas
+//  perhaps keep layout simple until a note is clicked then a note will pop up as a modal
 // Change second input to textarea:
-//  Make textarea resizable
-//  textarea will be a certain size up until a certain point
-//  the resizable area will only be till a certain size as well
+//  Make textarea auto resize when the input text grows
+//    textarea will be a certain size up until a certain point
+//    the resizable area will only be till a certain size as well
 // Add eventlistener to listen on keyup event to set a timer to make a request:
 //  Make note save after time has run out
 //  Add a spinner to indicate saving and saved state
@@ -26,12 +30,9 @@ const createNewNote = note => `
 //  when offline user should be able to save notes to localstorage or cache
 //  when creating a new note offline will add a temporary id
 //    this id will be changed on the backend when notes are synced
+//    on the backend we will check the id if it has something that indicates that its a temp id
 //  add functionality that would allow user to sync changes to database when user reconnects
-//  perhaps this would be optional and not forced
-//  perhaps user can sync only some changes and not others
 //  listen to close tab event and have a pop up asking user if he wants to close or not because notes havent been synced
-// 
-//  
 
 const createAndAddToList = () => {
   FetchNoteService
