@@ -1,33 +1,40 @@
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
   background-color: rgb(240, 233, 224);
   font-family: sans-serif;
   color: rgba(0, 0, 0, 0.425);
-  overflow-x: hidden;
+  overflow: auto;
+}
+body::-webkit-scrollbar {
+  display: none;
 }
 #container {
-  min-height: 100vh;
-  min-width: 100vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: auto;
-  justify-content: space-between;
+  margin: 1em auto;
+  max-width: 960px;
+  column-count: 4;
+  column-gap: 1.5em;
 }
 #main-header {
-  padding: 0;
   display: flex;
   flex-direction: column;
+  justify-self: center;
 }
 h1 {
   align-self: center;
   font-size: 100px;
 }
 #add-button {
-  align-self: flex-end;
+  margin-bottom: 50px;
   padding: 0;
   background-color: inherit;
   border: none;
@@ -49,20 +56,19 @@ h1 {
 }
 ul {
   padding: 0px;
-  display: flex;
-  flex-direction: column;
 }
 .list-item {
+  display: inline-block;
   padding: 0px;
-  margin-top: 20px;
+  margin: 0 0 1em;
+  width: 100%;
   list-style: none;
   background-color: #ffcf40cc;
-  display: flex;
   border: none;
   border-radius: 2px;
-  flex-direction: column;
   transition: 1.0 ease all;
   box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 .list-item input {
   background-color: inherit;
@@ -76,13 +82,36 @@ ul {
 }
 
 .list-item textarea {
+  padding: 0;
+  color: inherit;
   background-color: inherit;
   border: none; 
   block-size: 50px;
   text-anchor: middle;
-  text-align: center;
+  text-align: left;
+  font-size: 18px;
   outline: none;
-  caret-color: transparent;
+  max-width: 220px;
+}
+.list-item textarea::-webkit-scrollbar {
+  height: 16px;
+  width: 16px;
+  overflow: visible;
+}
+.list-item textarea::-webkit-scrollbar-thumb{
+  background-color: rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+  border: solid transparent;
+  border-width: 2px 0px 1px 2px;
+}
+.list-item textarea::-webkit-scrollbar-button{
+  height: 0px;
+  width: 0px;
+}
+.list-item textarea::-webkit-resizer{
+  background: #ffcf40cc;
+  border: none;
+  outline: none;
 }
 .note-title {
   display: flex;
