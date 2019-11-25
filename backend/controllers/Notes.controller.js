@@ -1,12 +1,13 @@
 const cuid = require("cuid");
 const Note = require("../models").Note;
-
+  //when syncing notes try to sync all at once
+  // Send error message over server
 module.exports.getAllNotes = (req, res) => {
   return Note.findAll()
     .then(notes => res.status(200).json({
       notes
     }))
-    .catch(err => console.log(err));
+    .catch(err => res.json({ message : err}));
 };
 module.exports.updateNote = async (req, res) => {
   const { id } = req.params;
@@ -22,7 +23,7 @@ module.exports.updateNote = async (req, res) => {
     .then(() => res.status(200).json({
       message: "Note has been updated"
     }))
-    .catch(err => console.log(err));
+    .catch(err => res.json({ message : err}));
 };
 module.exports.createNote = (req, res) => {
   const note = req.body;
@@ -36,7 +37,7 @@ module.exports.createNote = (req, res) => {
     .then(() => res.status(201).json({
       note: newNote
     }))
-    .catch(err => console.log(err));
+    .catch(err => res.json({ message : err}));
 };
 module.exports.deleteNote = (req, res) => {
   const { id } = req.params;
@@ -46,5 +47,5 @@ module.exports.deleteNote = (req, res) => {
     }
   })
   .then(()=> res.status(200).json({ message: 'Note has been deleted'}))
-  .catch(err => console.log(err));
+  .catch(err => res.json({ message : err}));
 };

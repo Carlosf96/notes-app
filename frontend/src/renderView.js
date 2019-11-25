@@ -20,12 +20,10 @@ const createNewNote = note => `
 // Layout changes:
 //  Implement responsive masonry layout using css and javscript
 //  look at the google keep for ideas
-//  perhaps keep layout simple until a note is clicked then a note will pop up as a modal
-// Add eventlistener to listen on keyup event to set a timer to make a request:
-//  Make note save after time has run out
-//  Add a spinner to indicate saving and saved state
+//  Add a spinner or something to indicate saving and saved state
 // Add offline view:
-//  add indication that the user is offline
+//  if a note is saved locally add indicator that it is saved locally
+//  add indication that the user is offline or online
 //    this id will be changed on the backend when notes are synced
 //    on the backend we will check the id if it has something that indicates that its a temp id
 //  add functionality that would allow user to sync changes to database when user reconnects
