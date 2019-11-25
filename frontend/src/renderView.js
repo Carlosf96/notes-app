@@ -1,9 +1,8 @@
-const online = navigator.onLine;
-const { localStorage } = window;
-// localStorage.setItem('notesArr', JSON.stringify([]));
-let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
-console.log(offlineNotes);
 const $ = selector => document.querySelector(selector);
+const { localStorage } = window;
+const online = navigator.onLine;
+const saveOfflineChange = () => localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
+let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
 const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
@@ -56,7 +55,7 @@ const createAndAddToList = () => {
       noteBody: '',
     })
     addToList(createNewNote(offlineNotes[offlineNotes.length - 1]));
-    localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
+    saveOfflineChange();
   };
 };
 const deleteAndRemoveFromList = (element) => {
@@ -70,15 +69,13 @@ const deleteAndRemoveFromList = (element) => {
     removeFromList(theId);
   } else {
     offlineNotes = offlineNotes.filter(note => note.id !== theId);
-    localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
+    saveOfflineChange();
     removeFromList(theId);
   }
 };
 const saveNoteContent = (event) => {
   console.log(event)
-  const {
-    target
-  } = event;
+  const { target } = event;
   event.preventDefault();
   let theId;
   let noteTitle;
@@ -97,10 +94,17 @@ const saveNoteContent = (event) => {
     title: noteTitle,
     body: noteBody,
   };
-  FetchNoteService
-    .updateNote(theId, updatedNote)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+  if(online){
+    FetchNoteService
+      .updateNote(theId, updatedNote)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  } else {
+    let noteIdx = offlineNotes.findIndex(e=> e.id === theId);
+    console.log(noteIdx)
+    offlineNotes[noteIdx] = updatedNote;
+    saveOfflineChange();
+  }
 };
 const getList = () => $('#list');
 const addToList = li => getList().insertAdjacentHTML('beforeend', li);
@@ -113,4 +117,4 @@ if (online) {
 } else {
   FetchNoteService.getNotes().then(notes => renderNotes(notes));
   renderOfflineNotes(offlineNotes);
-}
+} 
