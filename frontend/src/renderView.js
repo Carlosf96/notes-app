@@ -1,3 +1,8 @@
+const online = navigator.onLine;
+const { localStorage } = window;
+// localStorage.setItem('notesArr', JSON.stringify([]));
+let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
+console.log(offlineNotes);
 const $ = selector => document.querySelector(selector);
 const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
@@ -22,50 +27,66 @@ const createNewNote = note => `
 //  Add a spinner to indicate saving and saved state
 // Add offline view:
 //  add indication that the user is offline
-//  when offline user should be able to save notes to localstorage or cache
-//  when creating a new note offline will add a temporary id
 //    this id will be changed on the backend when notes are synced
 //    on the backend we will check the id if it has something that indicates that its a temp id
 //  add functionality that would allow user to sync changes to database when user reconnects
 //  listen to close tab event and have a pop up asking user if he wants to close or not because notes havent been synced
-
+const generateId = () => Math.random().toString(36).substring(7) + '-temp';
 const saveAfterWhile = (e) => {
   (() => {
     e.style.height = '50px';
     e.style.height = e.scrollHeight + 12 + 'px';
   })(e)
   event.preventDefault();
-  saveNoteContent(event);
+  setInterval(saveNoteContent(event), 1000000);
 }
 const createAndAddToList = () => {
-  FetchNoteService
-    .createNote({
+  if (online) {
+    FetchNoteService
+      .createNote({
+        noteTitle: '',
+        noteBody: '',
+      })
+      .then(res => addToList(createNewNote(res.note)))
+      .catch(err => console.log(err));
+  } else {
+    offlineNotes.push({
+      id: generateId(),
       noteTitle: '',
       noteBody: '',
     })
-    .then(res => addToList(createNewNote(res.note)))
-    .catch(err => console.log(err));
+    addToList(createNewNote(offlineNotes[offlineNotes.length - 1]));
+    localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
+  };
 };
 const deleteAndRemoveFromList = (element) => {
   event.preventDefault();
   const theId = element.id;
-  FetchNoteService
-    .deleteNote(theId)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
-  removeFromList(theId);
+  if(online){
+    FetchNoteService
+      .deleteNote(theId)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+    removeFromList(theId);
+  } else {
+    offlineNotes = offlineNotes.filter(note => note.id !== theId);
+    localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
+    removeFromList(theId);
+  }
 };
 const saveNoteContent = (event) => {
   console.log(event)
-  const { target } = event;
+  const {
+    target
+  } = event;
   event.preventDefault();
   let theId;
   let noteTitle;
   let noteBody;
-  if(event.type === 'input'){
+  if (event.type === 'input') {
     theId = [...target.form.id].filter(e => e !== '%').join('');
     noteTitle = !target.form[0].value ? target.form[0].placeholder : target.form[0].value;
-    noteBody = !target.form[1].value ? target.form[1].placeholder : target.form[1].value; 
+    noteBody = !target.form[1].value ? target.form[1].placeholder : target.form[1].value;
   } else {
     theId = [...target.id].filter(e => e !== '%').join('');
     noteTitle = !target[0].value ? target[0].placeholder : target[0].value;
@@ -80,11 +101,16 @@ const saveNoteContent = (event) => {
     .updateNote(theId, updatedNote)
     .then(res => console.log(res))
     .catch(err => console.log(err));
-  // window.location.reload(false);
 };
 const getList = () => $('#list');
 const addToList = li => getList().insertAdjacentHTML('beforeend', li);
-const removeFromList = id => $('#'+id).remove();
+const removeFromList = id => $('#' + id).remove();
 const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
-FetchNoteService.getNotes().then(notes => renderNotes(notes));
+const renderOfflineNotes = (notes) => notes.map(note => addToList(createNewNote(note)))
+if (online) {
+  FetchNoteService.getNotes().then(notes => renderNotes(notes));
+} else {
+  FetchNoteService.getNotes().then(notes => renderNotes(notes));
+  renderOfflineNotes(offlineNotes);
+}
