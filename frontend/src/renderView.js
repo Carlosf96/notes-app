@@ -3,13 +3,12 @@ const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
       <div class='note-title'>
-      <input class='title-input' type='text' id=${note.id + '-title'} placeholder=${note.title || 'Title'}>
-      <i type='text' class='delete-button' id=${note.id + '%'} onclick="deleteAndRemoveFromList()">x</i>
+      <input class='title-input' type='text' type='submit' id=${note.id + '-title'} placeholder=${note.title || 'Title'}>
+      <i type='text' class='delete-button' id=${note.id} onclick="deleteAndRemoveFromList(this)">x</i>
       </div>
-      <textarea class='body-input'  type='text' form=${note.id + '%'} id=${note.id + '-body'} placeholder=${note.body || 'Body'}>
+      <textarea class='body-input' oninput="saveAfterWhile(this)" type='text' form=${note.id + '%'} id=${note.id + '-body'} placeholder=${note.body || 'Body'}>
       ${note.body || 'Body'}
       </textarea>
-      <input class='hidden-button' type='submit'>
     </form>
   </li> 
   `;
@@ -18,10 +17,6 @@ const createNewNote = note => `
 //  Implement responsive masonry layout using css and javscript
 //  look at the google keep for ideas
 //  perhaps keep layout simple until a note is clicked then a note will pop up as a modal
-// Change second input to textarea:
-//  Make textarea auto resize when the input text grows
-//    textarea will be a certain size up until a certain point
-//    the resizable area will only be till a certain size as well
 // Add eventlistener to listen on keyup event to set a timer to make a request:
 //  Make note save after time has run out
 //  Add a spinner to indicate saving and saved state
@@ -34,6 +29,14 @@ const createNewNote = note => `
 //  add functionality that would allow user to sync changes to database when user reconnects
 //  listen to close tab event and have a pop up asking user if he wants to close or not because notes havent been synced
 
+const saveAfterWhile = (e) => {
+  (() => {
+    e.style.height = '50px';
+    e.style.height = e.scrollHeight + 12 + 'px';
+  })(e)
+  event.preventDefault();
+  saveNoteContent(event);
+}
 const createAndAddToList = () => {
   FetchNoteService
     .createNote({
@@ -43,22 +46,31 @@ const createAndAddToList = () => {
     .then(res => addToList(createNewNote(res.note)))
     .catch(err => console.log(err));
 };
-const deleteAndRemoveFromList = () => {
+const deleteAndRemoveFromList = (element) => {
   event.preventDefault();
-  const theId = [...event.srcElement.id].filter(e => e !== '%').join('');
+  const theId = element.id;
   FetchNoteService
     .deleteNote(theId)
     .then(res => console.log(res))
     .catch(err => console.log(err));
   removeFromList(theId);
 };
-const saveNoteContent = () => {
-  event.preventDefault();
+const saveNoteContent = (event) => {
+  console.log(event)
   const { target } = event;
-  console.log(target[0].value, target[1].value);
-  const theId = [...event.srcElement.id].filter(e => e !== '%').join('');
-  const noteTitle = !target[0].value ? target[0].placeholder : target[0].value;
-  const noteBody = !target[1].value ? target[1].placeholder : target[1].value;
+  event.preventDefault();
+  let theId;
+  let noteTitle;
+  let noteBody;
+  if(event.type === 'input'){
+    theId = [...target.form.id].filter(e => e !== '%').join('');
+    noteTitle = !target.form[0].value ? target.form[0].placeholder : target.form[0].value;
+    noteBody = !target.form[1].value ? target.form[1].placeholder : target.form[1].value; 
+  } else {
+    theId = [...target.id].filter(e => e !== '%').join('');
+    noteTitle = !target[0].value ? target[0].placeholder : target[0].value;
+    noteBody = !target[1].value ? target[1].placeholder : target[1].value;
+  }
   const updatedNote = {
     id: theId,
     title: noteTitle,
@@ -68,7 +80,7 @@ const saveNoteContent = () => {
     .updateNote(theId, updatedNote)
     .then(res => console.log(res))
     .catch(err => console.log(err));
-  window.location.reload(false);
+  // window.location.reload(false);
 };
 const getList = () => $('#list');
 const addToList = li => getList().insertAdjacentHTML('beforeend', li);
