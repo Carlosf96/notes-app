@@ -7,7 +7,7 @@ module.exports.getAllNotes = (req, res) => {
     .then(notes => res.status(200).json({
       notes
     }))
-    .catch(err => res.json({ message : err}));
+    .catch(err => res.json({ message : err }));
 };
 module.exports.updateNote = async (req, res) => {
   const { id } = req.params;
@@ -23,13 +23,16 @@ module.exports.updateNote = async (req, res) => {
     .then(() => res.status(200).json({
       message: "Note has been updated"
     }))
-    .catch(err => res.json({ message : err}));
+    .catch(err => res.json({ message : err }));
 };
 module.exports.createNote = (req, res) => {
   const note = req.body;
+  const { title, body } = req.body;
+  console.log(req.body, 'should not be empty')
   const newNote = {
     id: cuid(),
-    ...note
+    title,
+    body
   };
   Note.create({
       ...newNote
@@ -37,7 +40,7 @@ module.exports.createNote = (req, res) => {
     .then(() => res.status(201).json({
       note: newNote
     }))
-    .catch(err => res.json({ message : err}));
+    .catch(err => res.json({ message : err }));
 };
 module.exports.deleteNote = (req, res) => {
   const { id } = req.params;
@@ -47,5 +50,5 @@ module.exports.deleteNote = (req, res) => {
     }
   })
   .then(()=> res.status(200).json({ message: 'Note has been deleted'}))
-  .catch(err => res.json({ message : err}));
+  .catch(err => res.json({ message : err }));
 };

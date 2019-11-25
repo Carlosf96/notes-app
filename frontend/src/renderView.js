@@ -36,6 +36,16 @@ const saveAfterWhile = (e) => {
   })(e)
   event.preventDefault();
   setInterval(saveNoteContent(event), 1000000);
+};
+const syncNotes = (notes) => {
+  notes.map(note => {
+    let title = note.title
+    let body = note.body
+    FetchNoteService.createNote({
+      title,
+      body,
+    })
+  })
 }
 const createAndAddToList = () => {
   if (online) {
@@ -110,6 +120,7 @@ const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
 const renderOfflineNotes = (notes) => notes.map(note => addToList(createNewNote(note)))
 if (online) {
+  syncNotes(offlineNotes);
   FetchNoteService.getNotes().then(notes => renderNotes(notes));
 } else {
   FetchNoteService.getNotes().then(notes => renderNotes(notes));

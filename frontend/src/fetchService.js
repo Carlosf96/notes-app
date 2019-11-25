@@ -3,10 +3,13 @@ const FetchNoteService = (() => {
   const createNote = async note => {
     const res = await fetch('http://localhost:8000/api/notes/', {
       method: 'POST',
-      body: note,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(note),
     });
     const data = await res.json();
-    console.log(data, 'Retrieved notes');
+    console.log(data, 'created note');
     return Promise.resolve(data);
   };
   const getNotes = async () => {
