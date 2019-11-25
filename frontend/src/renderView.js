@@ -100,8 +100,7 @@ const saveNoteContent = (event) => {
       .then(res => console.log(res))
       .catch(err => console.log(err));
   } else {
-    let noteIdx = offlineNotes.findIndex(e=> e.id === theId);
-    console.log(noteIdx)
+    const noteIdx = offlineNotes.findIndex(e=> e.id === theId);
     offlineNotes[noteIdx] = updatedNote;
     saveOfflineChange();
   }

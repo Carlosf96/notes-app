@@ -69,6 +69,8 @@ ul {
   transition: 1.0 ease all;
   box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+  min-height: 175px;
+  min-width: 220px;
 }
 .list-item input {
   background-color: inherit;
@@ -86,7 +88,7 @@ ul {
   color: inherit;
   background-color: inherit;
   border: none; 
-  block-size: 50px;
+  block-size: 60px;
   text-anchor: middle;
   text-align: left;
   font-size: 18px;
@@ -94,9 +96,11 @@ ul {
   max-width: 220px;
   min-width: 220px;
   padding-top: 1.1em;
+  min-height: 100px;
   max-height: 250px;
   resize: none;
   word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .list-item textarea::-webkit-scrollbar {
   height: 16px;
