@@ -2,6 +2,8 @@ window.addEventListener('online', () => {
    setTimeout(function(){
      syncNotes(offlineNotes)
      M.toast({html: 'Your notes have been synced successfully'})
+     offlineNotes = [];
+     saveOfflineChange();
    }
    , 5000);
 
@@ -38,11 +40,9 @@ const createNewNote = note => `
 const generateId = () => Math.random().toString(36).substring(7) + '-temp';
 const saveAfterWhile = (e) => {
   event.preventDefault();
-  (() => {
-    e.style.height = '50px';
-    e.style.height = e.scrollHeight + 12 + 'px';
-  })(e)
-  saveNoteContent(event);
+  e.style.height = '50px';
+  e.style.height = e.scrollHeight + 12 + 'px';
+  setTimeout(saveNoteContent,2000,event)
 };
 const syncNotes = (notes) => {
   notes.map(note => {
@@ -110,12 +110,10 @@ const saveNoteContent = (event) => {
     body: noteBody,
   };
   if(online){
-    setTimeout(function(){
       FetchNoteService
         .updateNote(theId, updatedNote)
         .then(res => console.log(res))
         .catch(err => console.log(err));
-    },5000)
   } else {
     const noteIdx = offlineNotes.findIndex(e=> e.id === theId);
     offlineNotes[noteIdx] = updatedNote;
