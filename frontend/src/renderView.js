@@ -1,16 +1,24 @@
+window.addEventListener('online', () => {
+   setTimeout(function(){
+     syncNotes(offlineNotes)
+     M.toast({html: 'Your notes have been synced successfully'})
+   }
+   , 5000);
+
+})
+window.addEventListener('offline', () => {
+  M.toast({html: 'You are offline'})
+})
 const $ = selector => document.querySelector(selector);
 const { localStorage } = window;
 const online = navigator.onLine;
 const saveOfflineChange = () => localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
 let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
-window.addEventListener('online', () => {
-  syncNotes(offlineNotes);
-})
 const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
-    <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
+    <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent(this)">
       <div class='note-title'>
-      <input class='title-input' type='text' type='submit' id=${note.id + '-title'} placeholder=${note.title || 'Title'}>
+      <input class='title-input' type='text:not' autocomplete='off' type='submit' id=${note.id + '-title'} placeholder=${note.title || 'Title'}>
       <i type='text' class='delete-button' id=${note.id} onclick="deleteAndRemoveFromList(this)">x</i>
       </div>
       <textarea class='body-input' oninput="saveAfterWhile(this)" type='text' form=${note.id + '%'} id=${note.id + '-body'} placeholder=${note.body || 'Body'}>
@@ -26,19 +34,15 @@ const createNewNote = note => `
 //  Add a spinner or something to indicate saving and saved state
 // Add offline view:
 //  if a note is saved locally add indicator that it is saved locally
-//  add indication that the user is offline or online
-//    this id will be changed on the backend when notes are synced
-//    on the backend we will check the id if it has something that indicates that its a temp id
-//  add functionality that would allow user to sync changes to database when user reconnects
 //  listen to close tab event and have a pop up asking user if he wants to close or not because notes havent been synced
 const generateId = () => Math.random().toString(36).substring(7) + '-temp';
 const saveAfterWhile = (e) => {
+  event.preventDefault();
   (() => {
     e.style.height = '50px';
     e.style.height = e.scrollHeight + 12 + 'px';
   })(e)
-  event.preventDefault();
-  setInterval(saveNoteContent(event), 1000000);
+  saveNoteContent(event);
 };
 const syncNotes = (notes) => {
   notes.map(note => {
@@ -106,17 +110,19 @@ const saveNoteContent = (event) => {
     body: noteBody,
   };
   if(online){
-    FetchNoteService
-      .updateNote(theId, updatedNote)
-      .then(res => console.log(res))
-      .catch(err => console.log(err));
+    setTimeout(function(){
+      FetchNoteService
+        .updateNote(theId, updatedNote)
+        .then(res => console.log(res))
+        .catch(err => console.log(err));
+    },5000)
   } else {
     const noteIdx = offlineNotes.findIndex(e=> e.id === theId);
     offlineNotes[noteIdx] = updatedNote;
     saveOfflineChange();
   }
 };
-const getList = () => $('#list');
+const getList = () => $('.list');
 const addToList = li => getList().insertAdjacentHTML('beforeend', li);
 const removeFromList = id => $('#' + id).remove();
 const renderNewNote = () => addToList(createNewNote())();
