@@ -3,6 +3,9 @@ const { localStorage } = window;
 const online = navigator.onLine;
 const saveOfflineChange = () => localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
 let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
+window.addEventListener('online', () => {
+  syncNotes(offlineNotes);
+})
 const createNewNote = note => `
   <li class='list-item' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent()">
@@ -120,7 +123,6 @@ const renderNewNote = () => addToList(createNewNote())();
 const renderNotes = ({ notes }) => notes.map(note => addToList(createNewNote(note)));
 const renderOfflineNotes = (notes) => notes.map(note => addToList(createNewNote(note)))
 if (online) {
-  syncNotes(offlineNotes);
   FetchNoteService.getNotes().then(notes => renderNotes(notes));
 } else {
   FetchNoteService.getNotes().then(notes => renderNotes(notes));
