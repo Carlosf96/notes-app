@@ -6,7 +6,9 @@ router
   .route('/')
   .get(controller.getAllNotes)
   .post(controller.createNote);
-
+router
+  .route('/sync')
+  .post(controller.syncNotes)
 router
   .route('/:id')
   .put(controller.updateNote)

@@ -27,7 +27,7 @@ const FetchNoteService = (() => {
       body: JSON.stringify(note)
     });
     const data = await res.json();
-    console.log('note has been updated');
+    console.log(data, 'note has been updated');
     return Promise.resolve(data);
   };
   const deleteNote = async id => {
@@ -35,7 +35,19 @@ const FetchNoteService = (() => {
       method: 'DELETE',
     });
     const data = await res.json();
-    console.log('note has been deleted');
+    console.log(data, 'note has been deleted');
+    return Promise.resolve(data);
+  };
+  const syncUp = async notes => {
+    const res = await fetch('http://localhost:8000/api/notes/sync', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(notes),
+    });
+    const data = await res.json();
+    console.log(data, 'Synced Notes');
     return Promise.resolve(data);
   };
   return {
@@ -43,5 +55,6 @@ const FetchNoteService = (() => {
     getNotes,
     updateNote,
     deleteNote,
+    syncUp
   };
 })();

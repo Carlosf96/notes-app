@@ -1,14 +1,20 @@
 window.addEventListener('online', () => {
-   setTimeout(function(){
-     syncNotes(offlineNotes)
-     M.toast({html: 'Your notes have been synced successfully'})
-     offlineNotes = [];
-     saveOfflineChange();
-   }
-   , 5000);
-
+  if(offlineNotes.length > 0){
+    setTimeout(function(){
+      syncNotes(offlineNotes)
+      M.toast({html: 'Your notes have been synced successfully'})
+      offlineNotes = [];
+      saveOfflineChange();
+      $('.offline-message').remove();
+    }
+    , 3000);
+  } else {
+    $('.offline-message').remove();
+    M.toast({html: 'You are now online'})
+  }
 })
 window.addEventListener('offline', () => {
+  $('body').insertAdjacentHTML('afterbegin', offlineIndicator)
   M.toast({html: 'You are offline'})
 })
 const $ = selector => document.querySelector(selector);
@@ -17,42 +23,43 @@ const online = navigator.onLine;
 const saveOfflineChange = () => localStorage.setItem('notesArr', JSON.stringify(offlineNotes));
 let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
 const createNewNote = note => `
-  <li class='list-item' id=${note.id || 'single-note'}>
+  <li class='list-item col s12 m12 l3' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit="saveNoteContent(this)">
       <div class='note-title'>
       <input class='title-input' type='text:not' autocomplete='off' type='submit' id=${note.id + '-title'} placeholder=${note.title || 'Title'}>
       <i type='text' class='delete-button' id=${note.id} onclick="deleteAndRemoveFromList(this)">x</i>
       </div>
-      <textarea class='body-input' oninput="saveAfterWhile(this)" type='text' form=${note.id + '%'} id=${note.id + '-body'} placeholder=${note.body || 'Body'}>
+      <textarea class='body-input flow-text' oninput="saveAfterWhile(this)" type='text' form=${note.id + '%'} id=${note.id + '-body'} placeholder=${note.body || 'Body'}>
       ${note.body || 'Body'}
       </textarea>
     </form>
   </li> 
   `;
+const offlineIndicator = (() =>`
+  <div class='offline-message row'>
+    <p class='col s1 flow-text'>You are offline </p>
+    <i class='col s1 medium material-icons'>cloud_off</i>
+  </div>
+`)();
 // TODOS:
 // Layout changes:
-//  Implement responsive masonry layout using css and javscript
 //  look at the google keep for ideas
 //  Add a spinner or something to indicate saving and saved state
 // Add offline view:
 //  if a note is saved locally add indicator that it is saved locally
 //  listen to close tab event and have a pop up asking user if he wants to close or not because notes havent been synced
-const generateId = () => Math.random().toString(36).substring(7) + '-temp';
+const generateId = () => Math.random().toString(36).substring(7) + '-temp'; 
+let reSize = (e) => e.style.height = e.scrollHeight + 12 + 'px';
 const saveAfterWhile = (e) => {
   event.preventDefault();
-  e.style.height = '50px';
-  e.style.height = e.scrollHeight + 12 + 'px';
+  reSize(e);
   setTimeout(saveNoteContent,2000,event)
 };
 const syncNotes = (notes) => {
-  notes.map(note => {
-    let title = note.title
-    let body = note.body
-    FetchNoteService.createNote({
-      title,
-      body,
-    })
-  })
+  FetchNoteService
+    .syncUp(notes)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
 }
 const createAndAddToList = () => {
   if (online) {
@@ -129,6 +136,7 @@ const renderOfflineNotes = (notes) => notes.map(note => addToList(createNewNote(
 if (online) {
   FetchNoteService.getNotes().then(notes => renderNotes(notes));
 } else {
+  $('body').insertAdjacentHTML('afterbegin', offlineIndicator)
   FetchNoteService.getNotes().then(notes => renderNotes(notes));
   renderOfflineNotes(offlineNotes);
 } 

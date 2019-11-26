@@ -1,7 +1,6 @@
 const cuid = require("cuid");
 const Note = require("../models").Note;
-  //when syncing notes try to sync all at once
-  // Send error message over server
+
 module.exports.getAllNotes = (req, res) => {
   return Note.findAll()
     .then(notes => res.status(200).json({
@@ -25,22 +24,34 @@ module.exports.updateNote = async (req, res) => {
     }))
     .catch(err => res.json({ message : err }));
 };
-module.exports.createNote = (req, res) => {
-  const note = req.body;
-  const { title, body } = req.body;
-  console.log(req.body, 'should not be empty')
-  const newNote = {
-    id: cuid(),
-    title,
-    body
-  };
-  Note.create({
-      ...newNote
+module.exports.syncNotes = (req, res) => {
+  req.body.map(note => {
+    Note.create({
+      id: cuid(),
+      title: note.title,
+      body: note.body
     })
     .then(() => res.status(201).json({
-      note: newNote
+      note: req.body
     }))
     .catch(err => res.json({ message : err }));
+  })
+}
+module.exports.createNote = (req, res) => {
+    const { title, body } = req.body;
+    console.log(req.body, 'should not be empty')
+    const newNote = {
+      id: cuid(),
+      title,
+      body
+    };
+    Note.create({
+        ...newNote
+      })
+      .then(() => res.status(201).json({
+        note: newNote
+      }))
+      .catch(err => res.json({ message : err }));
 };
 module.exports.deleteNote = (req, res) => {
   const { id } = req.params;
