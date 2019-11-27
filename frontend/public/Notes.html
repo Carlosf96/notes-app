@@ -11,18 +11,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <title>Notes app</title>
   <script>
-  // window.onbeforeunload = function (e) {
-  //   e = e || window.event;
+    // window.onbeforeunload = function (e) {
+    //   e = e || window.event;
 
-  //   // For IE and Firefox prior to version 4
-  //   if (e) {
-  //       e.returnValue = 'Sure?';
-  //   }
+    //   // For IE and Firefox prior to version 4
+    //   if (e) {
+    //       e.returnValue = 'Sure?';
+    //   }
 
-  //   // For Safari
-  //   return 'Sure?';
-  // };
-</script>
+    //   // For Safari
+    //   return 'Sure?';
+    // };
+  </script>
 </head>
 <body>
   <div class='container'>
@@ -33,21 +33,21 @@
     <ul class='list row center-align'>
     </ul>
   </div>
-  <script type='text/javascript' src='../src/services/fetchService.js' ></script>
-  <script type='text/javascript' src='../src/utils/utils.js' ></script>
-  <script type='text/javascript' src='../src/components/components.js' ></script>
-  <script type='text/javascript' src='../src/actions/actions.js' ></script>
+  <script type='text/javascript' src='../src/services/fetchService.js'></script>
+  <script type='text/javascript' src='../src/actions/actions.js'></script>
+  <script type='text/javascript' src='../src/utils/utils.js'></script>
+  <script type='text/javascript' src='../src/components/components.js'></script>
   <script type='text/javascript' src='../src/app.js'></script>
   <script>
     if ('serviceWorker' in navigator) {
-    navigator.serviceWorker
-      .register('./../serviceWorker.js', {
-        scope: './'
-      })
-      .then(reg => {
-        console.log('Service worker has been registered for scope:' + reg.scope);
-      })
-      .catch(err => console.log(err));
+      navigator.serviceWorker
+        .register('./../serviceWorker.js', {
+          scope: './'
+        })
+        .then(reg => {
+          console.log('Service worker has been registered for scope:' + reg.scope);
+        })
+        .catch(err => console.log(err));
     };
   </script>
 </body>

@@ -1,4 +1,3 @@
-
 window.addEventListener('online', () => {
   if(offlineNotes.length > 0){
     setTimeout(function(){

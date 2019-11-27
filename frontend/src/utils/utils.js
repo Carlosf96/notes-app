@@ -1,5 +1,6 @@
 const online = navigator.onLine;
 const { localStorage } = window;
+let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
 const $ = selector => document.querySelector(selector);
 const reSize = (e) => e.style.height = e.scrollHeight + 12 + 'px';
 const generateId = () => Math.random().toString(36).substring(7) + '-temp'; 
