@@ -44,7 +44,7 @@ h1 {
 	transform-origin        : center;
 	-moz-transform-origin   : center;
 	-webkit-transform-origin: center;
-
+  cursor: pointer;
 	transition              : transform 1.0s ease all;
 	-moz-transition         : -moz-transform 1.0s ease 
 }
@@ -77,7 +77,7 @@ h1 {
   border-bottom: none;
 }
 .title-input:focus-within {
-  border-bottom: .001px solid rgba(0, 0, 0, 0.2);
+  border-bottom: .5px solid rgba(0, 0, 0, 0.2);
 }
 .title-input::placeholder {
   color: inherit;
@@ -100,6 +100,9 @@ h1 {
   resize: none;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+.list-item textarea::placeholder {
+  color: inherit;
 }
 .list-item textarea::-webkit-scrollbar {
   height: 16px;
