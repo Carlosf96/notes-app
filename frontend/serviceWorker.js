@@ -31,8 +31,6 @@ const networkFirst = async (req) => {
       cache.put(req, res.clone());
       return res;
   } catch (error) {
-      console.log('The request was not able to be made, here is some cachy cache')
-      // console.log(cache.match(req))
       return await cache.match(req);
   }
 };
