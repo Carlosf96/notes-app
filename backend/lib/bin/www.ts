@@ -1,5 +1,5 @@
-#!/usr/bin/env node
-var app = require('../app');
+#!/usr/bin/env node-ts
+import app from '../app';
 var http = require('http');
 var models = require('../models');
 //require('dotenv').config();
