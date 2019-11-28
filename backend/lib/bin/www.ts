@@ -1,6 +1,6 @@
 #!/usr/bin/env node-ts
 import app from '../app';
-var http = require('http');
+import * as http from 'http';
 var models = require('../models');
 //require('dotenv').config();
 var port = process.env.PORT || 8000;

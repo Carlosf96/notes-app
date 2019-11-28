@@ -1,7 +1,7 @@
 import * as express from 'express';
-import morgan from 'morgan';
-import cors from 'cors';
-import compression from 'compression';
+import * as morgan from 'morgan';
+import * as cors from 'cors';
+import * as compression from 'compression';
 import { Routes } from './routes/notes.route';
 class App {
   public app: express.Application;
