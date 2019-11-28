@@ -14,4 +14,4 @@ export class Routes {
       .put(this.notesController.updateNote)
       .delete(this.notesController.deleteNote);
   }
-}
+};

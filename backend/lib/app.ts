@@ -1,8 +1,7 @@
 import * as express from 'express';
-const morgan = require('morgan');
-const cors = require('cors');
-const logger = morgan('dev');
-const compression = require('compression');
+import morgan from 'morgan';
+import cors from 'cors';
+import compression from 'compression';
 import { Routes } from './routes/notes.route';
 class App {
   public app: express.Application;
@@ -15,10 +14,9 @@ class App {
   private config(): void{
     this.app.use(cors());
     this.app.use(compression());
-    this.app.use(logger);
+    this.app.use(morgan('dev'));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
-    // this.app.use('/api/notes');
   }
 }
 
