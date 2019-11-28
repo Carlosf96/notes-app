@@ -8,9 +8,11 @@ window.addEventListener('online', () => {
       $('.offline-message').remove();
     }
     , 3000);
+    reDraw($('.container'));
   } else {
     $('.offline-message').remove();
-    M.toast({html: 'You are now online'})
+    M.toast({html: 'You are now online'});
+    reDraw($('.container'));
   }
 })
 window.addEventListener('offline', () => {
@@ -20,8 +22,10 @@ window.addEventListener('offline', () => {
 
 if (online) {
   FetchNoteService.getNotes().then(notes => renderNotes(notes));
+  reDraw($('.container'));
 } else {
   $('body').insertAdjacentHTML('afterbegin', offlineIndicator)
-  FetchNoteService.getNotes().then(notes => renderNotes(notes));
+  FetchNoteService.getNotes().then(notes => rndrOnlnNotes(notes));
+  reDraw($('.container'));
   renderOfflineNotes(offlineNotes);
 }

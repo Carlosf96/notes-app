@@ -28,7 +28,8 @@ const networkFirst = async (req) => {
   const cache = await caches.open('dynamic-cache');
   try {
       const res = await fetch(req);
-      cache.put(req, res.clone());
+      cache.put(req, res.clone())
+        .catch(err => console.log(err));
       return res;
   } catch (error) {
       return await cache.match(req);

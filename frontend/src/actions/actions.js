@@ -1,6 +1,6 @@
 const saveAfterWhile = (e) => {
   event.preventDefault();
-  reSize(e);
+  newHeight = reSize(e);
   setTimeout(saveNoteContent, 2000, event)
 };
 const syncNotes = (notes) => {

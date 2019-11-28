@@ -1,4 +1,4 @@
-const createNewNote = note => `
+const offlineNewNote = note => `
   <li class='list-item col s12 m12 l3' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='input-forms' onsubmit='saveNoteContent(this)'>
       <div class='note-title'>
@@ -9,11 +9,6 @@ const createNewNote = note => `
           type='submit' 
           id='${note.id + '-title'}'
           placeholder='${note.title || 'Title'}'/>
-        <i 
-          class='delete-button' 
-          type='text'  
-          id='${note.id}' 
-          onclick='deleteAndRemoveFromList(this)'>x</i>
       </div>
       <textarea class='body-input flow-text' 
         oninput='saveAfterWhile(this)' 
@@ -24,11 +19,3 @@ const createNewNote = note => `
     </form>
   </li> 
   `;
-const offlineIndicator = (() =>`
-  <div class='offline-message row'>
-    <p class='col s1 m6 l3'>
-      You are offline
-      <i class='medium material-icons'>cloud_off</i>
-    </p>
-  </div>
-`)();
