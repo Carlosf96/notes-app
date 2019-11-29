@@ -1,5 +1,5 @@
 const createNewNote = note => `
-  <li class='col s12 m12 l3' id=${note.id || 'single-note'}>
+  <li class='col s12 m6 l4' id=${note.id || 'single-note'}>
     <form id=${note.id + '%'} class='list-item input-forms' onsubmit='saveNoteContent(this)'>
       <div class='note-title'>
         <input 
