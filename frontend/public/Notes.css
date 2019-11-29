@@ -50,9 +50,8 @@ h1 {
 }
 
 .list-item {
-  display: inline-block;
+  display: block;
   justify-self: center;
-  padding: 0px;
   margin: 0 .5em 1em;
   list-style: none;
   background-color: #ffcf40cc;
@@ -61,10 +60,9 @@ h1 {
   transition: 1.0 ease all;
   box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  min-width: 220px;
-  min-height: 175px;
+  min-height: fit-content; 
 }
-.title-input {
+.list-item input{
   color: inherit;
   background-color: inherit;
   border: none; 
@@ -83,43 +81,38 @@ h1 {
   color: inherit;
 }
 
-.list-item textarea {
-  padding: 0;
+textarea {
   color: inherit;
   background-color: inherit;
   border: none; 
-  block-size: auto;
-  text-anchor: middle;
   text-align: left;
-  font-size: 18px;
+  font-size: inherit;
   outline: none;
-  min-width: 220px;
-  padding-top: 1.1em;
   min-height: 220px;
   max-height: 250px;
   resize: none;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
-.list-item textarea::placeholder {
+textarea::placeholder {
   color: inherit;
 }
-.list-item textarea::-webkit-scrollbar {
+textarea::-webkit-scrollbar {
   height: 16px;
   width: 16px;
   overflow: visible;
 }
-.list-item textarea::-webkit-scrollbar-thumb{
+textarea::-webkit-scrollbar-thumb{
   background-color: rgba(0, 0, 0, 0.2);
   background-clip: padding-box;
   border: solid transparent;
   border-width: 2px 0px 1px 2px;
 }
-.list-item textarea::-webkit-scrollbar-button{
+textarea::-webkit-scrollbar-button{
   height: 0px;
   width: 0px;
 }
-.list-item textarea::-webkit-resizer{
+textarea::-webkit-resizer{
   display: none;
 }
 .note-title {

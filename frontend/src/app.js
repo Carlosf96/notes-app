@@ -1,4 +1,15 @@
+if (online) {
+  FetchNoteService.getNotes().then(notes => renderNotes(notes));
+} else {
+  $('body').insertAdjacentHTML('afterbegin', offlineIndicator)
+  FetchNoteService.getNotes().then(notes => rndrOnlnNotes(notes));
+  renderOfflineNotes(offlineNotes);
+};
 window.addEventListener('online', () => {
+  FetchNoteService.getNotes().then(res => {
+    res.notes.map(note => removeFromList(note.id))
+    renderNotes(res)
+  });
   if(offlineNotes.length > 0){
     setTimeout(function(){
       syncNotes(offlineNotes)
@@ -8,24 +19,24 @@ window.addEventListener('online', () => {
       $('.offline-message').remove();
     }
     , 3000);
-    reDraw($('.container'));
   } else {
     $('.offline-message').remove();
     M.toast({html: 'You are now online'});
-    reDraw($('.container'));
   }
-})
+});
 window.addEventListener('offline', () => {
   $('body').insertAdjacentHTML('afterbegin', offlineIndicator)
-  M.toast({html: 'You are offline'})
-})
+  M.toast({html: 'You are offline'});
+  FetchNoteService.getNotes().then(res => {
+    res.notes.map(note => removeFromList(note.id))
+    rndrOnlnNotes(res)
+  });
+});
 
-if (online) {
-  FetchNoteService.getNotes().then(notes => renderNotes(notes));
-  reDraw($('.container'));
-} else {
-  $('body').insertAdjacentHTML('afterbegin', offlineIndicator)
-  FetchNoteService.getNotes().then(notes => rndrOnlnNotes(notes));
-  reDraw($('.container'));
-  renderOfflineNotes(offlineNotes);
-}
+// if (online) {
+//   FetchNoteService.getNotes().then(notes => renderNotes(notes));
+// } else {
+//   $('body').insertAdjacentHTML('afterbegin', offlineIndicator)
+//   // FetchNoteService.getNotes().then(notes => rndrOnlnNotes(notes));
+//   renderOfflineNotes(offlineNotes);
+// };

@@ -4,8 +4,8 @@ let offlineNotes = JSON.parse(localStorage.getItem('notesArr')) || [];
 let newHeight;
 const $ = selector => document.querySelector(selector);
 const reDraw = (e) => {
-  e.style.display = 'none';
-  e.style.display = 'block';
+
+  e.style.display = 'hidden';
 };
 const reSize = (e) => e.style.height = e.scrollHeight + 12 + 'px';
 const generateId = () => Math.random().toString(36).substring(7) + '-temp'; 
