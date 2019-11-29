@@ -25,8 +25,8 @@ const createNewNote = note => `
   </li> 
   `;
 const offlineIndicator = (() =>`
-  <div class='offline-message row'>
-    <p class='col s1 m6 l3'>
+  <div class='offline-message left-align col s1 m6 l3'>
+    <p class='flow-text'>
       You are offline
       <i class='medium material-icons'>cloud_off</i>
     </p>
